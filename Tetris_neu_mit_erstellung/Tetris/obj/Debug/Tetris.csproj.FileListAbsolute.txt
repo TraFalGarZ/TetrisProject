@@ -1,0 +1,32 @@
+h:\PRG\C#\Tetris\Tetris\obj\Debug\ResolveAssemblyReference.cache
+h:\PRG\C#\Tetris\Tetris\obj\Debug\Tetris.Form1.resources
+h:\PRG\C#\Tetris\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+h:\PRG\C#\Tetris\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
+h:\PRG\C#\Tetris\Tetris\bin\Debug\Tetris.exe
+h:\PRG\C#\Tetris\Tetris\bin\Debug\Tetris.pdb
+h:\PRG\C#\Tetris\Tetris\obj\Debug\Tetris.exe
+h:\PRG\C#\Tetris\Tetris\obj\Debug\Tetris.pdb
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\obj\Debug\Tetris.exe
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\obj\Debug\Tetris.pdb
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\bin\Debug\Tetris.exe
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\bin\Debug\Tetris.pdb
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\obj\Debug\ResolveAssemblyReference.cache
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\obj\Debug\Tetris.Form1.resources
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+\\VBOXSVR\Virual_Pc\Tetris\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.exe
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.pdb
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\bin\Debug\Tetris.exe
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\bin\Debug\Tetris.pdb
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\ResolveAssemblyReference.cache
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Form1.resources
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+\\VBOXSVR\Virual_Pc\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.exe
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.pdb
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\bin\Debug\Tetris.exe
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\bin\Debug\Tetris.pdb
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\ResolveAssemblyReference.cache
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Form1.resources
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache

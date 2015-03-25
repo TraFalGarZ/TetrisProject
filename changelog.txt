@@ -1,0 +1,7 @@
+18.03.2015
+- Automatisches Pausieren wenn Fokus nichtmehr auf aktueller Form
+- Tasteneingabe im Hintergrund funktioniert (ActiveObject auf null gesetzt)
+
+
+19.03.2015: 
+- 
