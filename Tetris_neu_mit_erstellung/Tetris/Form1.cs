@@ -30,10 +30,6 @@ namespace Tetris
         {
             InitializeComponent();
 
-
-
-		//
-//hi
             erstellen();
            // erstellen_test();
            // Form_activated = true;
