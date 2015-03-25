@@ -32,6 +32,8 @@ namespace Tetris
 
 
 
+		//
+//hi
             erstellen();
            // erstellen_test();
            // Form_activated = true;
