@@ -3,5 +3,6 @@
 - Tasteneingabe im Hintergrund funktioniert (ActiveObject auf null gesetzt)
 
 
-19.03.2015: 
-- 
+23.03.2015: 
+- Methode die überprüft, ob unter dem Block schon ein anderer Block vorhanden ist
+
