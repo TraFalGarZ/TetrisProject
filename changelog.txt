@@ -13,4 +13,5 @@
 
 
 
-d
+26.03.15:
+- Methode Block_fällt vervollständigt (muss noch getestet werden ob es immer funktioniert)

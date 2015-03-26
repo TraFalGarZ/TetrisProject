@@ -30,3 +30,11 @@ h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\ResolveAssem
 h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Form1.resources
 h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Properties.Resources.resources
 h:\PRG\C#\Projekt Tetris\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.exe
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.pdb
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Form1.resources
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.Properties.Resources.resources
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\obj\Debug\Tetris.csproj.GenerateResource.Cache
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\bin\Debug\Tetris.exe
+C:\Users\Virtual\Documents\GitHub\TetrisProject\Tetris_neu_mit_erstellung\Tetris\bin\Debug\Tetris.pdb

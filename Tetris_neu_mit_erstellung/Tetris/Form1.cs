@@ -59,19 +59,23 @@ namespace Tetris
             //x   /-/  y
             //col /-/ row
             //i   /-/  j
-            feldstatus = new int[Austausch.anz_col, Austausch.anz_row];
+            feldstatus = new int[Austausch.anz_col, Austausch.anz_row+1]; //Feld eig von -1 bis maximale Anzahl+1
             for (j = 0; j < Austausch.anz_row; j++)
             {
+                //ganze rechte Spalte wird als Rand gesetzt
                 feldstatus[0, j] = -2;
+                //Mittleres Feld ist leer
                 for (i = 1; i < Austausch.anz_col-1; i++)
                 {
                     feldstatus[i, j] = -1;
                 }
+                //linke Spalte wird als Rand gesetzt
                 feldstatus[ Austausch.anz_col-1,j] = -2;           //-2 = Rand / -1 = leer
             }
+            //ganze Untere Reihe des Spielfeldes wird als Rand gesetzt
             for (i = 0; i < Austausch.anz_col; i++)
             {
-                feldstatus[i,Austausch.anz_row-1] = -2;
+                feldstatus[i,Austausch.anz_row] = -2;
             }
 
             int row_index; 
@@ -495,6 +499,21 @@ namespace Tetris
                  currBlockID = 6;
                  break;
 
+                case 7:
+                    //Test
+                 //Würfel
+                 currPanelrow[3] = 0;
+                 currPanelcol[3] = (Austausch.anz_col / 2) - 1;
+                 currPanelrow[2] = 0;
+                 currPanelcol[2] = (Austausch.anz_col / 2);
+                 currPanelrow[1] = 1;
+                 currPanelcol[1] = (Austausch.anz_col / 2) - 1;
+                 currPanelrow[0] = 0;
+                 currPanelcol[0] = (Austausch.anz_col / 2);
+                 currBlockID = 0;
+                 break;
+
+
                 default:
                     
                 break;
@@ -505,7 +524,7 @@ namespace Tetris
             {
                 tableLayoutPanel1.Controls.Add(p[index], currPanelcol[index], currPanelrow[index]);  
             }
-
+/*
             //Test Panel unterhalb Block 6 erstellen
             Panel p1 = new Panel();
             p1.Size = new Size(30, 30);
@@ -514,7 +533,7 @@ namespace Tetris
             p1.BackColor = FarbenFeld[Farbe];
             tableLayoutPanel1.Controls.Add(p1,currPanelcol[3], 2);
             feldstatus[currPanelcol[3], 2] = 0;
-            
+*/            
  
         }
 
@@ -732,14 +751,37 @@ namespace Tetris
 
             if (blocku_besetzt == false)
             {
-                for (i=0;i<4;i++)
+                for (i = PanelList.Count - 1; i >= PanelList.Count - 4;i--) //Achtung : i kann auch größer 4 sein bei mehreren Blöcken
                 {
-                    //Block soll herunterfallen
+                    //Block löschen
+                    Panel panel_1 = (Panel)tableLayoutPanel1.Controls.Find("panel" + i, false).FirstOrDefault();
+                    Debug.Print(Convert.ToString(PanelList.Count) + " / " + i);
+                    Debug.Print("hi " + Convert.ToString(panel_1.Name));
+                    tableLayoutPanel1.Controls.Remove(panel_1);
                     
-                    
-                   // tableLayoutPanel1.Controls.Remove(currBlock[i]);
+                   
                 }
+                for (i = 0; i < 4; i++)
+                {
+                    feldstatus[currPanelcol[i], currPanelrow[i]] = -1;
+                }
+               
+                for (i = PanelList.Count - 1; i >= PanelList.Count - 4; i--)
+                {
+                    //Block einen tiefer einfügen
+                    Panel panel_1 = (Panel) PanelList[i];
+
+                    currPanelrow[i] = currPanelrow[i] + 1;
+                    tableLayoutPanel1.Controls.Add(panel_1, currPanelcol[i], currPanelrow[i]);
+                }
+                for (i = 0; i < 4; i++)
+                {
+                    feldstatus[currPanelcol[i], currPanelrow[i]] = 1;       //<-- Beispiel / eig müsste hier die Block_ID stehen bzw die ID der Farbe
+                }
+                
             }
+
+/*
             PanelList.RemoveAt(PanelList.Count - 1);
             PanelList.RemoveAt(PanelList.Count - 1);
             PanelList.RemoveAt(PanelList.Count - 1);
@@ -748,9 +790,11 @@ namespace Tetris
             
             for (i = 0; i < PanelList.Count; i++)
             {
+                
                 //Panel pp = (Panel)PanelList[i];
                 Debug.Print(Convert.ToString(PanelList[i]));
             }
+ */
             
             
         }
