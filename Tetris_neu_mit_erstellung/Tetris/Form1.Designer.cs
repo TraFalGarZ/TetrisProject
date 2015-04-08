@@ -36,7 +36,6 @@
             this.panel_out = new System.Windows.Forms.Panel();
             this.label_countdown = new System.Windows.Forms.Label();
             this.timer_fall = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.panel_out.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,23 +115,12 @@
             this.timer_fall.Interval = 1000;
             this.timer_fall.Tick += new System.EventHandler(this.timer_fall_Tick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(726, 380);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "timerfall";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(828, 562);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label_countdown);
             this.Controls.Add(this.panel_out);
             this.Controls.Add(this.btn_stop);
@@ -158,7 +146,6 @@
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.Label label_countdown;
         private System.Windows.Forms.Timer timer_fall;
-        private System.Windows.Forms.Button button1;
 
     }
 }

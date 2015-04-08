@@ -134,33 +134,7 @@ namespace Tetris
             panel_out.Visible = true;
             tableLayoutPanel1.Visible = true;
 
-
-            /*
-            label_countdown.Visible = true;
-            System.Threading.Thread.Sleep(750);
-            label_countdown.Text = "2";
-            System.Threading.Thread.Sleep(750);
-            label_countdown.Text = "1";
-            System.Threading.Thread.Sleep(750);
-            label_countdown.Text = "Go!";
-             */
-
-            //Focus wieder auf die Form
-/*          btn_stop.Enabled = false;
-            btn_getfocus.Enabled = false;
-            btn_start.Enabled = false;
-            btn_stop.Enabled = true;
-            btn_getfocus.Enabled =true;
-            btn_start.Enabled = true;
-*/
-           // sender=(Control)Form1.ActiveForm;
-
-            //System.Threading.Thread.Sleep(500);
-  //          timer_block_down.Start();
-           
-           // Form1.ActiveForm.ActiveControl = tableLayoutPanel1;  //Focus auf Tablelayoutpanel -> sonst funktionieren tasteneigaben nicht!           
-            //Form1.ActiveForm.Activate();
-
+            timer_fall.Start();
             this.ActiveControl = null;
             
            
@@ -275,36 +249,23 @@ namespace Tetris
             {
                 case Keys.Down:
 
+                    //Hier einfügen was passieren soll wenn Pfeil nach unten gedrückt wird
+
                     break;
                 case Keys.Right:
-                    for (i = Austausch.anz_col - 1; i >= 0; i--)
-                    {
-                        for (j = 0; j < Austausch.anz_row; j++)
-                        {
-                            panelName = "panelx" + i + "y" + j;
-                            panelControl = (Panel)tableLayoutPanel1.Controls.Find(panelName, false).FirstOrDefault();
 
-                            if (panelControl.BackColor == Color.Red)
-                            {
-                                z = i + 1;
-                                if (z < Austausch.anz_col)
-                                {
-                                    panelName = "panelx" + z + "y" + j;
-                                    panelControl_right = (Panel)tableLayoutPanel1.Controls.Find(panelName, false).FirstOrDefault();
-                                    colorsave = panelControl.BackColor;
-                                    panelControl.BackColor = Color.Transparent;
-                                    panelControl_right.BackColor = colorsave;
-                                }
-                            }
+                     //Hier einfügen was passieren soll wenn Rechte Pfeiltaste gedrückt wird 
 
-                        }
-                    }
-                    //action
                     break;
                 case Keys.Up:
+
+                    //Hier einfügen was passieren soll wenn Pfeil nach oben gedrückt wird
+
                     break;
                 case Keys.Left:
-                    //action
+
+                    //Hier einfügen was passieren soll wenn Linke Pfeiltaste gedrückt wird
+
                     break;
             }
 
@@ -523,17 +484,21 @@ namespace Tetris
             for (index = 0; index < 4; index++)
             {
                 tableLayoutPanel1.Controls.Add(p[index], currPanelcol[index], currPanelrow[index]);  
+                feldstatus[currPanelcol[index],currPanelrow[index]] = Farbe; 
             }
-/*
-            //Test Panel unterhalb Block 6 erstellen
-            Panel p1 = new Panel();
-            p1.Size = new Size(30, 30);
-            p1.BorderStyle = BorderStyle.FixedSingle;
-            p1.Margin = new Padding(0, 0, 0, 0);
-            p1.BackColor = FarbenFeld[Farbe];
-            tableLayoutPanel1.Controls.Add(p1,currPanelcol[3], 2);
-            feldstatus[currPanelcol[3], 2] = 0;
-*/            
+
+
+            //feldstatus ausgeben 
+            int i, j;
+            Debug.WriteLine("___________________________________________");
+            for (i = 0; i <= Austausch.anz_row; i++)
+            {
+                for (j = 0; j < Austausch.anz_col; j++)
+                {
+                    Debug.Write(feldstatus[j, i] + "\t");
+                }
+                Debug.WriteLine("");
+            }
  
         }
 
@@ -546,262 +511,256 @@ namespace Tetris
             int unterster_col_block = -1;
             ArrayList lst_doppelte_werte = new ArrayList(); //liste der werte die beim herunterfallen nicht beachtet werden sollen [index des Blocks]
 
-           //Größe des Blocks bestimmen
-            kleinsterBlockwert = Austausch.anz_col;  
-            for (i = 0; i < 4; i++)
+            if (Form_activated == true)
             {
-                if (currPanelcol[i] < kleinsterBlockwert)
+                //Größe des Blocks bestimmen
+                kleinsterBlockwert = Austausch.anz_col;
+                for (i = 0; i < 4; i++)
                 {
-                    kleinsterBlockwert = currPanelcol[i];
-                }                 
-            }
-
-            groessterBlockwert = 0;
-            for (i = 0; i < 4; i++)
-            {
-                if (currPanelcol[i] > groessterBlockwert)
-                {
-                    groessterBlockwert = currPanelcol[i];
-                }
-            }
-
-            for (i = 0; i < 4; i++)
-            {
-                colblocks[i] = -1;
-            }
-            for (i = 0; i < 4; i++)
-            {
-               for (j=0;j<4;j++)
-               {
-                   if (currPanelcol[i] == colblocks[j])
-                   {
-                       if (lst_doppelte_werte.Count==0)
-                       {
-                           lst_doppelte_werte.Add(i);
-                           lst_doppelte_werte.Add(j);
-                       }
-                       else
-                       {
-                           if ((!(lst_doppelte_werte.Contains(i))) && currPanelcol[i] == currPanelcol[(int)lst_doppelte_werte[0]])
-                           {
-                               lst_doppelte_werte.Add(i);
-                               
-                           }
-                           else
-                           {
-                               if ((!(lst_doppelte_werte.Contains(i))) || (!(lst_doppelte_werte.Contains(j))))
-                               {
-                                   lst_doppelte_werte.Add(i);
-                                   lst_doppelte_werte.Add(j);                                  
-                               }
-                           }
-
-                       }
-                       
-                      
-                   }                  
-               }
-               colblocks[i] = currPanelcol[i];
-            }
-
-            //ermitteln welches Panel tiefer liegt
-            bool isgleiche_col = true;
-            int gleiche_col=0;
-            for (i = 0; i < lst_doppelte_werte.Count; i++)
-            {
-                if (i == 0)
-                {
-                    gleiche_col = currPanelcol[(int)lst_doppelte_werte[i]];
-                }
-                else
-                {
-                    if (currPanelcol[(int)lst_doppelte_werte[i]] != gleiche_col)
+                    if (currPanelcol[i] < kleinsterBlockwert)
                     {
-                        isgleiche_col = false;
+                        kleinsterBlockwert = currPanelcol[i];
                     }
                 }
 
-            }
-            //--------------------------------------------------------------------------------------
-            //funktioniert - noch testen
-            bool ugef = false;
-            if (isgleiche_col == true)
-            {
-                
-                for (i = 0; i <lst_doppelte_werte.Count; i++)      
+                groessterBlockwert = 0;
+                for (i = 0; i < 4; i++)
                 {
-                    if (currPanelrow[(int)lst_doppelte_werte[i]] > unterster_col_block) 
+                    if (currPanelcol[i] > groessterBlockwert)
                     {
-                        unterster_col_block = currPanelrow[(int)lst_doppelte_werte[i]];
+                        groessterBlockwert = currPanelcol[i];
                     }
                 }
-                for (i = 0; i <lst_doppelte_werte.Count; i++)
+
+                for (i = 0; i < 4; i++)
                 {
-                    if (currPanelrow[(int)lst_doppelte_werte[i]] == unterster_col_block && ugef==false)
-                    {
-                        unterster_col_block = (int)lst_doppelte_werte[i];
-                        ugef = true;
-                    }
+                    colblocks[i] = -1;
                 }
-                lst_doppelte_werte.Remove(unterster_col_block); 
-            }
-            //---------------------------------------------------------------------------------------
-            if (isgleiche_col == false)
-            {
-                
-                int z1=-1, z2=-1;
-                int ucolz1=-1, ucolz2=-1;
+                for (i = 0; i < 4; i++)
+                {
+                    for (j = 0; j < 4; j++)
+                    {
+                        if (currPanelcol[i] == colblocks[j])
+                        {
+                            if (lst_doppelte_werte.Count == 0)
+                            {
+                                lst_doppelte_werte.Add(i);
+                                lst_doppelte_werte.Add(j);
+                            }
+                            else
+                            {
+                                if ((!(lst_doppelte_werte.Contains(i))) && currPanelcol[i] == currPanelcol[(int)lst_doppelte_werte[0]])
+                                {
+                                    lst_doppelte_werte.Add(i);
+
+                                }
+                                else
+                                {
+                                    if ((!(lst_doppelte_werte.Contains(i))) || (!(lst_doppelte_werte.Contains(j))))
+                                    {
+                                        lst_doppelte_werte.Add(i);
+                                        lst_doppelte_werte.Add(j);
+                                    }
+                                }
+
+                            }
+
+
+                        }
+                    }
+                    colblocks[i] = currPanelcol[i];
+                }
+
+                //ermitteln welches Panel tiefer liegt
+                bool isgleiche_col = true;
+                int gleiche_col = 0;
                 for (i = 0; i < lst_doppelte_werte.Count; i++)
                 {
-                    Debug.Print("lstdoppelte_werte[i] = " + (int)lst_doppelte_werte[i]);
-                    Debug.Print("currPanelcol = " + currPanelcol[(int)lst_doppelte_werte[i]]);
                     if (i == 0)
                     {
-                        z1 = currPanelcol[(int)lst_doppelte_werte[i]];
+                        gleiche_col = currPanelcol[(int)lst_doppelte_werte[i]];
                     }
                     else
                     {
-                        if (currPanelcol[(int)lst_doppelte_werte[i]] == z1)
+                        if (currPanelcol[(int)lst_doppelte_werte[i]] != gleiche_col)
                         {
+                            isgleiche_col = false;
+                        }
+                    }
+
+                }
+                //--------------------------------------------------------------------------------------
+                //funktioniert - noch testen
+                bool ugef = false;
+                if (isgleiche_col == true)
+                {
+
+                    for (i = 0; i < lst_doppelte_werte.Count; i++)
+                    {
+                        if (currPanelrow[(int)lst_doppelte_werte[i]] > unterster_col_block)
+                        {
+                            unterster_col_block = currPanelrow[(int)lst_doppelte_werte[i]];
+                        }
+                    }
+                    for (i = 0; i < lst_doppelte_werte.Count; i++)
+                    {
+                        if (currPanelrow[(int)lst_doppelte_werte[i]] == unterster_col_block && ugef == false)
+                        {
+                            unterster_col_block = (int)lst_doppelte_werte[i];
+                            ugef = true;
+                        }
+                    }
+                    lst_doppelte_werte.Remove(unterster_col_block);
+                }
+                //---------------------------------------------------------------------------------------
+                if (isgleiche_col == false)
+                {
+
+                    int z1 = -1, z2 = -1;
+                    int ucolz1 = -1, ucolz2 = -1;
+                    for (i = 0; i < lst_doppelte_werte.Count; i++)
+                    {
+                        Debug.Print("lstdoppelte_werte[i] = " + (int)lst_doppelte_werte[i]);
+                        Debug.Print("currPanelcol = " + currPanelcol[(int)lst_doppelte_werte[i]]);
+                        if (i == 0)
+                        {
+                            z1 = currPanelcol[(int)lst_doppelte_werte[i]];
                         }
                         else
                         {
-                            z2=currPanelcol[(int)lst_doppelte_werte[i]];
+                            if (currPanelcol[(int)lst_doppelte_werte[i]] == z1)
+                            {
+                            }
+                            else
+                            {
+                                z2 = currPanelcol[(int)lst_doppelte_werte[i]];
+                            }
                         }
                     }
+                    for (i = 0; i < lst_doppelte_werte.Count; i++)
+                    {
+                        if (currPanelcol[(int)lst_doppelte_werte[i]] == z1)
+                        {
+                            if (currPanelrow[(int)lst_doppelte_werte[i]] > ucolz1)
+                            {
+                                ucolz1 = currPanelrow[(int)lst_doppelte_werte[i]];
+                            }
+                        }
+                        if (currPanelcol[(int)lst_doppelte_werte[i]] == z2)
+                        {
+                            if (currPanelrow[(int)lst_doppelte_werte[i]] > ucolz2)
+                            {
+                                ucolz2 = currPanelrow[(int)lst_doppelte_werte[i]]; //0 - (müssten 1 sein)
+                            }
+                            Debug.Print("currpanelrow = " + currPanelrow[(int)lst_doppelte_werte[i]]);
+                            Debug.Print("ucolz2 = " + ucolz2);
+                        }
+                    }
+
+                    bool tgef1 = false;
+                    bool tgef2 = false;
+                    for (i = 0; i < lst_doppelte_werte.Count; i++)
+                    {
+                        if (currPanelcol[(int)lst_doppelte_werte[i]] == z1)
+                        {
+                            if (currPanelrow[(int)lst_doppelte_werte[i]] == ucolz1 && tgef1 == false)
+                            {
+                                ucolz1 = (int)lst_doppelte_werte[i];
+                                tgef1 = true;
+                            }
+                        }
+
+                        if (currPanelcol[(int)lst_doppelte_werte[i]] == z2)
+                        {
+                            if (currPanelrow[(int)lst_doppelte_werte[i]] == ucolz2 && tgef2 == false)
+                            {
+                                ucolz2 = (int)lst_doppelte_werte[i];
+                                tgef2 = true;
+                            }
+                        }
+
+                    }
+                    lst_doppelte_werte.Remove(ucolz1);
+                    lst_doppelte_werte.Remove(ucolz2);
+                }
+                //------------------------------------------------------------------------------------------------------
+
+                for (i = 0; i < 4; i++)
+                {
+                    Debug.Print("[" + i + "] = [" + currPanelcol[i] + "][" + currPanelrow[i] + "]");
                 }
                 for (i = 0; i < lst_doppelte_werte.Count; i++)
                 {
-                    if (currPanelcol[(int)lst_doppelte_werte[i]] == z1)
-                    {
-                        if (currPanelrow[(int)lst_doppelte_werte[i]] > ucolz1)
-                        {
-                            ucolz1 = currPanelrow[(int)lst_doppelte_werte[i]];
-                        }
-                    }
-                    if (currPanelcol[(int)lst_doppelte_werte[i]] == z2)
-                    {                       
-                        if (currPanelrow[(int)lst_doppelte_werte[i]] > ucolz2)
-                        {
-                            ucolz2 = currPanelrow[(int)lst_doppelte_werte[i]]; //0 - (müssten 1 sein)
-                        }
-                        Debug.Print("currpanelrow = " + currPanelrow[(int)lst_doppelte_werte[i]]);
-                        Debug.Print("ucolz2 = " + ucolz2);
-                    }
+                    Debug.Print("------" + Convert.ToString(lst_doppelte_werte[i]));
                 }
 
-                bool tgef1 = false;
-                bool tgef2 = false;
-                for (i = 0; i < lst_doppelte_werte.Count; i++)
-                {
-                    if (currPanelcol[(int)lst_doppelte_werte[i]] == z1)
-                    {
-                        if (currPanelrow[(int)lst_doppelte_werte[i]] ==ucolz1 && tgef1==false)
-                        {
-                            ucolz1=(int)lst_doppelte_werte[i];
-                            tgef1 = true;
-                        }
-                    }
-                    
-                    if (currPanelcol[(int)lst_doppelte_werte[i]] == z2)
-                    {
-                        if (currPanelrow[(int)lst_doppelte_werte[i]] ==ucolz2 && tgef2 == false)
-                        {
-                            ucolz2=(int)lst_doppelte_werte[i];
-                            tgef2 = true;
-                        }
-                    }
-                    
-                }
-                lst_doppelte_werte.Remove(ucolz1);
-                lst_doppelte_werte.Remove(ucolz2);
-            }
-            //------------------------------------------------------------------------------------------------------
-
-            for (i = 0; i < 4; i++)
-            {
-                Debug.Print("["+i+"] = ["+currPanelcol[i]+"]["+currPanelrow[i]+"]");
-            }
-            for (i = 0; i < lst_doppelte_werte.Count; i++)
-            {
-                Debug.Print("------"+Convert.ToString(lst_doppelte_werte[i]));
-            }
-
-            
 
 
-            /* Falls es nicht mehr weiter geht */
-            bool blocku_besetzt = false;
-            for (i = 0; i < 4; i++)
-            {
-                if (!(lst_doppelte_werte.Contains(i)))
-                {
-                    if (feldstatus[currPanelcol[i], currPanelrow[i]+1] != -1)
-                    {
-                        blocku_besetzt = true;
-                    }                    
-                }
-            }
 
-            //Überprüfung - besetzter Block unterhalb
-            if (blocku_besetzt == true)
-            {
-                Debug.Print("Block kann nicht weiter fallen");
-            }
-
-            if (blocku_besetzt == false)
-            {
-                for (i = PanelList.Count - 1; i >= PanelList.Count - 4;i--) //Achtung : i kann auch größer 4 sein bei mehreren Blöcken
-                {
-                    //Block löschen
-                    Panel panel_1 = (Panel)tableLayoutPanel1.Controls.Find("panel" + i, false).FirstOrDefault();
-                    Debug.Print(Convert.ToString(PanelList.Count) + " / " + i);
-                    Debug.Print("hi " + Convert.ToString(panel_1.Name));
-                    tableLayoutPanel1.Controls.Remove(panel_1);
-                    
-                   
-                }
+                /* Falls es nicht mehr weiter geht */
+                bool blocku_besetzt = false;
                 for (i = 0; i < 4; i++)
                 {
-                    feldstatus[currPanelcol[i], currPanelrow[i]] = -1;
+                    if (!(lst_doppelte_werte.Contains(i)))
+                    {
+                        if (feldstatus[currPanelcol[i], currPanelrow[i] + 1] != -1)
+                        {
+                            blocku_besetzt = true;
+                        }
+                    }
                 }
-               
-                for (i = PanelList.Count - 1; i >= PanelList.Count - 4; i--)
-                {
-                    //Block einen tiefer einfügen
-                    Panel panel_1 = (Panel) PanelList[i];
 
-                    currPanelrow[i] = currPanelrow[i] + 1;
-                    tableLayoutPanel1.Controls.Add(panel_1, currPanelcol[i], currPanelrow[i]);
-                }
-                for (i = 0; i < 4; i++)
+                //Überprüfung - besetzter Block unterhalb
+                if (blocku_besetzt == true)
                 {
-                    feldstatus[currPanelcol[i], currPanelrow[i]] = 1;       //<-- Beispiel / eig müsste hier die Block_ID stehen bzw die ID der Farbe
+                    Debug.Print("Block kann nicht weiter fallen");
                 }
-                
+
+                if (blocku_besetzt == false)
+                {
+                    for (i = PanelList.Count - 1; i >= PanelList.Count - 4; i--) //Achtung : i kann auch größer 4 sein bei mehreren Blöcken
+                    {
+                        //Block löschen
+                        Panel panel_1 = (Panel)tableLayoutPanel1.Controls.Find("panel" + i, false).FirstOrDefault();
+                        tableLayoutPanel1.Controls.Remove(panel_1);
+
+
+                    }
+                    for (i = 0; i < 4; i++)
+                    {
+                        feldstatus[currPanelcol[i], currPanelrow[i]] = -1;
+                    }
+
+                    for (i = PanelList.Count - 1; i >= PanelList.Count - 4; i--)
+                    {
+                        //Block einen nach unten verschieben
+                        Panel panel_1 = (Panel)PanelList[i];
+
+                        currPanelrow[i] = currPanelrow[i] + 1;
+                        tableLayoutPanel1.Controls.Add(panel_1, currPanelcol[i], currPanelrow[i]);
+                    }
+                    for (i = 0; i < 4; i++)
+                    {
+                        feldstatus[currPanelcol[i], currPanelrow[i]] = 1;       //<-- Beispiel / eig müsste hier die Block_ID stehen bzw die ID der Farbe
+                    }
+                    
+                }
+
             }
-
-/*
-            PanelList.RemoveAt(PanelList.Count - 1);
-            PanelList.RemoveAt(PanelList.Count - 1);
-            PanelList.RemoveAt(PanelList.Count - 1);
-            PanelList.RemoveAt(PanelList.Count - 1);
-            PanelList.Add("panel33");
-            
-            for (i = 0; i < PanelList.Count; i++)
+//------------------------------------------------------------------------------------
+            //Feldstatus Feld Ausgabe
+            Debug.WriteLine("___________________________________________");
+            for (i = 0; i <= Austausch.anz_row; i++)
             {
-                
-                //Panel pp = (Panel)PanelList[i];
-                Debug.Print(Convert.ToString(PanelList[i]));
+                for (j = 0; j <Austausch.anz_col; j++)
+                {
+                    Debug.Write(feldstatus[j, i] + "\t");
+                }
+                Debug.WriteLine("");
             }
- */
-            
+//-------------------------------------------------------------------------------------
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            timer_fall.Start();
-        }
     }
 }
