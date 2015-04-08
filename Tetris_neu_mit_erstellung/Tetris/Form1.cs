@@ -53,7 +53,7 @@ namespace Tetris
             tableLayoutPanel1.RowCount = 0;
             tableLayoutPanel1.ColumnCount = 0;   
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 0F));
             
             Austausch.anz_row= 20;
             Austausch.anz_col=  11;
@@ -62,18 +62,18 @@ namespace Tetris
             //x   /-/  y
             //col /-/ row
             //i   /-/  j
-            feldstatus = new int[Austausch.anz_col+2, Austausch.anz_row+1]; //Feld eig von -1 bis maximale Anzahl+1
+            feldstatus = new int[Austausch.anz_col+1, Austausch.anz_row+1]; //Feld von 0 bis maximale Anzahl +1
             for (j = 0; j <= Austausch.anz_row; j++)
             {
                 //ganze linke Spalte wird als Rand gesetzt
                 feldstatus[0, j] = -2;
                 //Mittleres Feld ist leer
-                for (i = 1; i <= Austausch.anz_col; i++)
+                for (i = 1; i < Austausch.anz_col; i++)
                 {
                     feldstatus[i, j] = -1;
                 }
                 //rechte Spalte wird als Rand gesetzt
-                feldstatus[ Austausch.anz_col+1,j] = -2;           //-2 = Rand / -1 = leer
+                feldstatus[Austausch.anz_col,j] = -2;           //-2 = Rand / -1 = leer
             }
             //ganze Untere Reihe des Spielfeldes wird als Rand gesetzt
             for (i = 0; i <= Austausch.anz_col; i++)
@@ -86,7 +86,9 @@ namespace Tetris
             int col_index;
             row_index = 0;
             col_index = 0;
-            tableLayoutPanel1.ColumnCount++; //Index soll bei 1 beginnen 
+
+
+
              for (i = 0; i < Austausch.anz_col; i++)
              {
                   col_index = AddTableCol();
@@ -377,7 +379,7 @@ namespace Tetris
                 case 0:
                     //Würfel
                     currPanelrow[0] = 0;
-                    currPanelcol[0] = ((Austausch.anz_col+1) / 2)-1;
+                    currPanelcol[0] = ((Austausch.anz_col + 1) / 2) - 1;
                     currPanelrow[1] = 0;
                     currPanelcol[1] = ((Austausch.anz_col+1) / 2);
                     currPanelrow[2] = 1;
@@ -498,7 +500,7 @@ namespace Tetris
             Debug.WriteLine("___________________________________________");
             for (i = 0; i <= Austausch.anz_row; i++)
             {
-                for (j = 0; j <= Austausch.anz_col+1; j++)
+                for (j = 0; j <= Austausch.anz_col; j++)
                 {
                     Debug.Write(feldstatus[j, i] + "\t");
                 }
@@ -757,7 +759,7 @@ namespace Tetris
             Debug.WriteLine("___________________________________________");
             for (i = 0; i <= Austausch.anz_row; i++)
             {
-                for (j = 0; j <Austausch.anz_col; j++)
+                for (j = 0; j <=Austausch.anz_col; j++)
                 {
                     Debug.Write(feldstatus[j, i] + "\t");
                 }
