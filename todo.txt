@@ -1,2 +1,2 @@
 
--Feldstatus muss noch geändert werden beim Erstellen eines Blocks (und bei Endposition)
+-

@@ -15,7 +15,9 @@ namespace Tetris
     public partial class Form1 : Form
     {
         bool Form_activated;
+        
         int[,] feldstatus;
+        
         int[] currBlock;
         int currBlockID;
         int[] currPanelrow;
@@ -55,44 +57,47 @@ namespace Tetris
             
             Austausch.anz_row= 20;
             Austausch.anz_col=  11;
+           
 
             //x   /-/  y
             //col /-/ row
             //i   /-/  j
-            feldstatus = new int[Austausch.anz_col, Austausch.anz_row+1]; //Feld eig von -1 bis maximale Anzahl+1
-            for (j = 0; j < Austausch.anz_row; j++)
+            feldstatus = new int[Austausch.anz_col+2, Austausch.anz_row+1]; //Feld eig von -1 bis maximale Anzahl+1
+            for (j = 0; j <= Austausch.anz_row; j++)
             {
-                //ganze rechte Spalte wird als Rand gesetzt
+                //ganze linke Spalte wird als Rand gesetzt
                 feldstatus[0, j] = -2;
                 //Mittleres Feld ist leer
-                for (i = 1; i < Austausch.anz_col-1; i++)
+                for (i = 1; i <= Austausch.anz_col; i++)
                 {
                     feldstatus[i, j] = -1;
                 }
-                //linke Spalte wird als Rand gesetzt
-                feldstatus[ Austausch.anz_col-1,j] = -2;           //-2 = Rand / -1 = leer
+                //rechte Spalte wird als Rand gesetzt
+                feldstatus[ Austausch.anz_col+1,j] = -2;           //-2 = Rand / -1 = leer
             }
             //ganze Untere Reihe des Spielfeldes wird als Rand gesetzt
-            for (i = 0; i < Austausch.anz_col; i++)
+            for (i = 0; i <= Austausch.anz_col; i++)
             {
                 feldstatus[i,Austausch.anz_row] = -2;
             }
+           
 
             int row_index; 
             int col_index;
             row_index = 0;
-            col_index = 0;          
-             
+            col_index = 0;
+            tableLayoutPanel1.ColumnCount++; //Index soll bei 1 beginnen 
              for (i = 0; i < Austausch.anz_col; i++)
              {
                   col_index = AddTableCol();
+                  Debug.Print("Table col index : " + col_index);
              }
 
              for (i = 0; i < Austausch.anz_row; i++)
              {
                  row_index = AddTableRow();
 
-                 for (j = 0; j < Austausch.anz_col; j++)
+                 for (j = 1; j <= Austausch.anz_col; j++)
                  {
                      xAchse = j;
                      yAchse = Austausch.anz_row - (i+1);
@@ -115,7 +120,7 @@ namespace Tetris
             this.tableLayoutPanel1.RowCount++;
             RowStyle style = new RowStyle(SizeType.Absolute);
             style.Height = 30;
-            tableLayoutPanel1.RowStyles.Add(style);            
+            tableLayoutPanel1.RowStyles.Add(style);
             return index;
         }
 
@@ -372,13 +377,13 @@ namespace Tetris
                 case 0:
                     //Würfel
                     currPanelrow[0] = 0;
-                    currPanelcol[0] = (Austausch.anz_col / 2)-1;
+                    currPanelcol[0] = ((Austausch.anz_col+1) / 2)-1;
                     currPanelrow[1] = 0;
-                    currPanelcol[1] = (Austausch.anz_col / 2);
+                    currPanelcol[1] = ((Austausch.anz_col+1) / 2);
                     currPanelrow[2] = 1;
-                    currPanelcol[2] = (Austausch.anz_col / 2)-1;
+                    currPanelcol[2] = ((Austausch.anz_col+1) / 2)-1;
                     currPanelrow[3] = 1;
-                    currPanelcol[3] = (Austausch.anz_col / 2);
+                    currPanelcol[3] = ((Austausch.anz_col+1) / 2);
                     currBlockID = 0;
                  break;
 
@@ -493,7 +498,7 @@ namespace Tetris
             Debug.WriteLine("___________________________________________");
             for (i = 0; i <= Austausch.anz_row; i++)
             {
-                for (j = 0; j < Austausch.anz_col; j++)
+                for (j = 0; j <= Austausch.anz_col+1; j++)
                 {
                     Debug.Write(feldstatus[j, i] + "\t");
                 }

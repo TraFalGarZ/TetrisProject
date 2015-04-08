@@ -15,3 +15,6 @@
 
 26.03.15:
 - Methode Block_fällt vervollständigt (muss noch getestet werden ob es immer funktioniert)
+
+08.04.15:
+- feldstatus werte werden bei Block-erstellung angepasst
